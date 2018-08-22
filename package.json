@@ -1,0 +1,34 @@
+{
+  "name": "practica-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.9"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/velafarq/practica-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/velafarq/practica-api/issues"
+  },
+  "homepage": "https://github.com/velafarq/practica-api#readme"
+}
