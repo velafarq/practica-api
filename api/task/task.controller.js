@@ -6,7 +6,7 @@ const getTasks = (req, res) => {
     user: user._id
   })
     .then(tasks => {
-      res.json(tasks.map(task => task.serialize()));
+      res.json(tasks.reverse().map(task => task.serialize()));
     })
     .catch(err => {
       console.error(err);
@@ -33,11 +33,45 @@ const createTask = (req, res) => {
     user: user._id,
     task: req.body.task
   })
-    .then(task =>
-      res.status(201).json({
-        _id: task._id
-      })
-    )
+    .then(task => res.status(201).json(task.serialize()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: "Something went wrong"
+      });
+    });
+};
+
+const completeTask = (req, res) => {
+  const { user } = req;
+
+  if (!(req.params.id && req.body._id && req.params.id === req.body._id)) {
+    res.status(400).json({
+      error: "Request path id and request body id values must match"
+    });
+  }
+
+  const updated = {};
+  const updateableFields = ["completed"];
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      updated[field] = req.body[field];
+    }
+  });
+
+  Task.findOneAndUpdate(
+    {
+      _id: req.params.id,
+      user: user._id
+    },
+    {
+      $set: updated
+    },
+    {
+      new: true
+    }
+  )
+    .then(updatedTask => res.status(204).json(updatedTask))
     .catch(err => {
       console.error(err);
       res.status(500).json({
@@ -65,4 +99,4 @@ const deleteTask = (req, res) => {
     });
 };
 
-module.exports = { getTasks, createTask, deleteTask };
+module.exports = { getTasks, createTask, deleteTask, completeTask };

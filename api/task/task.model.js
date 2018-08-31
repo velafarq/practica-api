@@ -8,7 +8,7 @@ require("mongodb-moment")(moment);
 const taskSchema = mongoose.Schema({
   user: mongoose.Schema.ObjectId,
   task: String,
-  completed: Boolean,
+  completed: { type: Boolean, default: false },
   date: { type: Date, default: Date.now }
 });
 

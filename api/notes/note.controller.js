@@ -6,7 +6,7 @@ const getNotes = (req, res) => {
     user: user._id
   })
     .then(notes => {
-      res.json(notes.map(note => note.serialize()));
+      res.json(notes.reverse().map(note => note.serialize()));
     })
     .catch(err => {
       console.error(err);
@@ -40,11 +40,7 @@ const createNote = (req, res) => {
     user: user._id,
     content: req.body.content
   })
-    .then(note =>
-      res.status(201).json({
-        _id: note._id
-      })
-    )
+    .then(note => res.status(201).json(note.serialize()))
     .catch(err => {
       console.error(err);
       res.status(500).json({
