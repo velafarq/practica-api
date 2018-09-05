@@ -8,7 +8,9 @@ require("mongodb-moment")(moment);
 const taskSchema = mongoose.Schema({
   user: mongoose.Schema.ObjectId,
   task: String,
-  completed: { type: Boolean, default: false },
+  status: { type: Boolean, default: false },
+  notes: Array,
+  practiceDuration: Number,
   date: { type: Date, default: Date.now }
 });
 
@@ -21,7 +23,9 @@ taskSchema.methods.serialize = function() {
     _id: this._id,
     user: this.user,
     task: this.task,
-    completed: this.completed,
+    notes: this.notes,
+    practiceDuration: this.practiceDuration,
+    status: this.status,
     date: this.dateString
   };
 };

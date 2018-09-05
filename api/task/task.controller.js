@@ -17,17 +17,7 @@ const getTasks = (req, res) => {
 };
 
 const createTask = (req, res) => {
-  const requiredFields = ["task"];
   const { user } = req;
-
-  for (let i = 0; i < requiredFields.length; i++) {
-    const field = requiredFields[i];
-    if (!(field in req.body)) {
-      const message = `Missing \`${field}\` in request body`;
-      console.error(message);
-      return res.status(400).send(message);
-    }
-  }
 
   Task.create({
     user: user._id,
@@ -51,13 +41,7 @@ const completeTask = (req, res) => {
     });
   }
 
-  const updated = {};
-  const updateableFields = ["completed"];
-  updateableFields.forEach(field => {
-    if (field in req.body) {
-      updated[field] = req.body[field];
-    }
-  });
+  const updated = ["status"];
 
   Task.findOneAndUpdate(
     {
