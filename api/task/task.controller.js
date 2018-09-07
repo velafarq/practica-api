@@ -32,7 +32,7 @@ const createTask = (req, res) => {
     });
 };
 
-const completeTask = (req, res) => {
+const updateTask = (req, res) => {
   const { user } = req;
 
   if (!(req.params.id && req.body._id && req.params.id === req.body._id)) {
@@ -41,7 +41,13 @@ const completeTask = (req, res) => {
     });
   }
 
-  const updated = ["status"];
+  const updated = {};
+  const updateableFields = ["status", "practiceDuration"];
+  updateableFields.forEach(field => {
+    if (field in req.body) {
+      updated[field] = req.body[field];
+    }
+  });
 
   Task.findOneAndUpdate(
     {
@@ -64,6 +70,63 @@ const completeTask = (req, res) => {
     });
 };
 
+const getTaskById = (req, res) => {
+  const { user } = req;
+  Task.findOne({
+    _id: req.params.id,
+    user: user._id
+  })
+    .then(task => {
+      res.json(task.serialize());
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: "something went wrong"
+      });
+    });
+};
+const pushNote = (req, res) => {
+  const { user } = req;
+  Task.findOne({
+    _id: req.params.id,
+    user: user._id
+  })
+    .then(task => {
+      task.notes.push({ title: req.body.title, body: req.body.body });
+      task.save(function(err) {
+        if (!err) console.log("Success!");
+      });
+      res.json(task.serialize());
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: "something went wrong"
+      });
+    });
+};
+
+// const deleteNote = (req, res) => {
+//   const { user } = req;
+//   Task.findOne({
+//     _id: req.params.id,
+//     user: user._id
+//   })
+//     .then(task => {
+//       task.notes.id("5b901616a649d96e73cacbab").remove();
+//       task.save(function(err) {
+//         if (!err) console.log("Success!");
+//       });
+//       // res.json(task.serialize());
+//     })
+//     .catch(err => {
+//       console.error(err);
+//       res.status(500).json({
+//         error: "something went wrong"
+//       });
+//     });
+// };
 const deleteTask = (req, res) => {
   const { user } = req;
   Task.findOneAndRemove({
@@ -83,4 +146,11 @@ const deleteTask = (req, res) => {
     });
 };
 
-module.exports = { getTasks, createTask, deleteTask, completeTask };
+module.exports = {
+  getTasks,
+  getTaskById,
+  createTask,
+  deleteTask,
+  updateTask,
+  pushNote
+};
