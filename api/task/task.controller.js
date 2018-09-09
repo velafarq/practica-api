@@ -93,7 +93,7 @@ const pushNote = (req, res) => {
     user: user._id
   })
     .then(task => {
-      task.notes.push({ title: req.body.title, body: req.body.body });
+      task.notes.unshift({ title: req.body.title, body: req.body.body });
       task.save(function(err) {
         if (!err) console.log("Success!");
       });

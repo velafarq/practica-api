@@ -1,29 +1,12 @@
 const { Practice } = require("./practice.model");
 
-const getPracticeSessions = (req, res) => {
+const getTotalPracticeTime = (req, res) => {
   const { user } = req;
   Practice.find({
     user: user._id
   })
-    .then(practiceSessions => {
-      res.json(practiceSessions.map(session => session.serialize()));
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({
-        error: "something went wrong"
-      });
-    });
-};
-
-const getPracticeSessionById = (req, res) => {
-  const { user } = req;
-  Practice.findOne({
-    _id: req.params.id,
-    user: user._id
-  })
-    .then(session => {
-      res.json(session.serialize());
+    .then(practiceTime => {
+      res.json(practiceTime);
     })
     .catch(err => {
       console.error(err);
@@ -38,12 +21,12 @@ const createPracticeSession = (req, res) => {
 
   Practice.create({
     user: user._id,
-    practiceStatus: req.body.practiceStatus,
+
     practiceDuration: req.body.practiceDuration
   })
     .then(practice =>
       res.status(201).json({
-        _id: practice._id
+        practice
       })
     )
     .catch(err => {
@@ -54,7 +37,7 @@ const createPracticeSession = (req, res) => {
     });
 };
 
-const updatePracticeSession = (req, res) => {
+const updatePracticeTime = (req, res) => {
   const { user } = req;
 
   if (!(req.params.id && req.body._id && req.params.id === req.body._id)) {
@@ -64,7 +47,7 @@ const updatePracticeSession = (req, res) => {
   }
 
   const updated = {};
-  const updateableFields = ["practiceStatus", "practiceDuration"];
+  const updateableFields = ["practiceDuration"];
   updateableFields.forEach(field => {
     if (field in req.body) {
       updated[field] = req.body[field];
@@ -82,7 +65,7 @@ const updatePracticeSession = (req, res) => {
       new: true
     }
   )
-    .then(updatedPractice => res.status(204).end())
+    .then(updatedPracticeTime => res.status(204).end())
     .catch(err => {
       console.error(err);
       res.status(500).json({
@@ -92,8 +75,7 @@ const updatePracticeSession = (req, res) => {
 };
 
 module.exports = {
-  getPracticeSessions,
+  getTotalPracticeTime,
   createPracticeSession,
-  updatePracticeSession,
-  getPracticeSessionById
+  updatePracticeTime
 };

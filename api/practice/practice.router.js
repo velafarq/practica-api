@@ -1,13 +1,11 @@
 const {
-  getPracticeSessions,
+  getTotalPracticeTime,
   createPracticeSession,
-  updatePracticeSession,
-  getPracticeSessionById
+  updatePracticeTime
 } = require("./practice.controller");
 
 module.exports = app => {
-  app.get("/practice", getPracticeSessions);
-  app.get("/practice/:id", getPracticeSessionById);
+  app.get("/practice", getTotalPracticeTime);
   app.post("/practice", createPracticeSession);
-  app.put("/practice/:id", updatePracticeSession);
+  app.put("/practice/:id", updatePracticeTime);
 };
