@@ -6,7 +6,7 @@ const getNotes = (req, res) => {
     user: user._id
   })
     .then(notes => {
-      res.json(notes.reverse().map(note => note.serialize()));
+      res.json(notes.map(note => note.serialize()));
     })
     .catch(err => {
       console.error(err);
