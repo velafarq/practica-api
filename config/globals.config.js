@@ -5,5 +5,3 @@ exports.DATABASE_URL =
 exports.TEST_DATABASE_URL =
   process.env.TEST_DATABASE_URL ||
   "mongodb://velafarq:Tafthenry22@ds229732.mlab.com:29732/practica-test-db";
-
-// exports.JWT_EXPIRY = process.env.JWT_EXPIRY || "7d";

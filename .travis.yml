@@ -1,0 +1,11 @@
+language: node_js
+node_js: node
+services:
+- mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: 5RWPatXVfqQnqbgoNh8mdVRU9KFOpy9t1xEi2S/JzWQ1h1Dinr00XOMbkyNGmgLLfP/5N+yxRZyIZ8/ftjhYFg4h8DF85yXrU2PSf9lVuiZHL0l50LtToQ3VfiMnACml2HZnuQN8PX88oL2iTSDkgEXYZcwL4D9opuWL0mDMQS7hS6nFTISQxRx8y/NKz9Zl0/6SehTDDnwzzd1Po6ayRucT+wieur/pHLyMg97HqW5yjlY/T1YXm7xRZfPiMYbLUl45e+OyKzcD8x+wjuTfUV8jBXE62Vcx/5ZCd8/5oxSzuAg+mDo3i9dHoOWHIjnoCkZMg72AZEtVutWX9rHCBC9dLU/Txw7+7BsH7aJX9HIDKV566BLDZEFL7SoAI5/nfAHuc4vdQ0oZVQvwztg4QUQ+97+gFauLOuyYzoD+4uoshj68brT1+xnsgZrgcFRadhABeaIGeSVd82vrPTzgQbxY9+BCkmHqOU1+LRVIWXTnSowN9OWQFmSV7xHnozVgF5BrPYa31r/wSvhEAbz8jMt9kIZH4025S72sPOCn/9K5wzG18oMCO0xBfWYLseiNN1OT7KnTC9WwJlDM0qNY6J2CYXYnR3FdlCUZCmoaAKRxja28jaQ3saQQObvHY3GoJtpxQvP8QHWJIPO5kXZN3mMFZ7VZBqxBKzzxWeX2vG0=
+  app: boiling-mountain-55806
+  on:
+    repo: velafarq/practica-api
