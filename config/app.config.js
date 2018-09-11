@@ -13,7 +13,7 @@ const path = require("path");
 const JWT_SECRET = "12345";
 
 module.exports = app => {
-  app.use(express.static(path.join(__dirname, "../public")));
+  app.use(express.static(path.join(__dirname, "../build")));
   app.use(jsonParser);
   app.use(cors());
   app.use(morgan("common"));
