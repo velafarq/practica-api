@@ -17,7 +17,7 @@ require("./config/errors.config")(app);
 require("./config/routers.config")(app);
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public/index.html"));
+  res.sendFile(path.join(__dirname, "./build/index.html"));
 });
 
 function runServer(databaseUrl = DATABASE_URL, port = PORT) {
