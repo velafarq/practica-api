@@ -1,6 +1,9 @@
 {
   "name": "practica-api",
   "version": "1.0.0",
+  "engines": {
+    "node": "8.11.2"
+  },
   "description": "",
   "main": "server.js",
   "directories": {
