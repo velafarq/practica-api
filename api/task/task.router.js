@@ -4,7 +4,8 @@ const {
   createTask,
   deleteTask,
   updateTask,
-  pushNote
+  pushNote,
+  pullNote
 } = require("./task.controller");
 
 module.exports = app => {
@@ -13,5 +14,6 @@ module.exports = app => {
   app.put("/tasks/:id/notes", pushNote);
   app.post("/tasks", createTask);
   app.put("/tasks/:id", updateTask);
+  app.put("/tasks/:id/notes/pull", pullNote);
   app.delete("/tasks/:id", deleteTask);
 };

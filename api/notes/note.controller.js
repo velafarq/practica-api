@@ -5,6 +5,7 @@ const getNotes = (req, res) => {
   Note.find({
     user: user._id
   })
+    .sort([["date", -1]])
     .then(notes => {
       res.json(notes.map(note => note.serialize()));
     })

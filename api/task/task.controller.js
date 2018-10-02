@@ -107,26 +107,27 @@ const pushNote = (req, res) => {
     });
 };
 
-// const deleteNote = (req, res) => {
-//   const { user } = req;
-//   Task.findOne({
-//     _id: req.params.id,
-//     user: user._id
-//   })
-//     .then(task => {
-//       task.notes.id("5b901616a649d96e73cacbab").remove();
-//       task.save(function(err) {
-//         if (!err) console.log("Success!");
-//       });
-//       // res.json(task.serialize());
-//     })
-//     .catch(err => {
-//       console.error(err);
-//       res.status(500).json({
-//         error: "something went wrong"
-//       });
-//     });
-// };
+const pullNote = (req, res) => {
+  const { user } = req;
+  Task.findOne({
+    _id: req.params.id,
+    user: user._id
+  })
+    .then(task => {
+      task.notes.pull({ _id: req.body._id });
+      task.save(function(err) {
+        if (!err) console.log("Success!");
+      });
+      res.json(task.serialize());
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: "something went wrong"
+      });
+    });
+};
+
 const deleteTask = (req, res) => {
   const { user } = req;
   Task.findOneAndRemove({
@@ -152,5 +153,6 @@ module.exports = {
   createTask,
   deleteTask,
   updateTask,
-  pushNote
+  pushNote,
+  pullNote
 };
