@@ -22,3 +22,4 @@ password: demouser2018
 - Create new projects
 - View your practice stats
 - Keep track of your notes
+- Utilizes GET, POST, PUT and DELETE API endpoints to interact with projects, hourly practice logs, and notes.
